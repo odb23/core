@@ -1,5 +1,5 @@
+using Core;
 using Core.Services;
-using System.Runtime.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<IResponseFormatter, HtmlResponseFormatter>();
@@ -17,6 +17,8 @@ app.MapGet("/formatter2", async (HttpContext context, IResponseFormatter formatt
 {
     await formatter.Format(context, "Formatter 2");
 });
+
+app.UseMiddleware<CustomMiddleware>();
 
 app.MapGet("/", () => "Hello World!");
 
