@@ -20,6 +20,7 @@ app.MapGet("/formatter2", async (HttpContext context, IResponseFormatter formatt
 
 app.UseMiddleware<CustomMiddleware>();
 
+app.MapGet("/endpoint", CustomEndpoint.EndPoint);
 app.MapGet("/", () => "Hello World!");
 
 app.Run();
