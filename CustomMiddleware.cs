@@ -7,22 +7,25 @@ namespace Core
     public class CustomMiddleware
     {
         private RequestDelegate _next;
-        private IResponseFormatter _formatter;
 
 
-        public CustomMiddleware(RequestDelegate next, IResponseFormatter formatter)
+        public CustomMiddleware(RequestDelegate next)
         {
             this._next = next;
-            this._formatter = formatter;
         }
 
-        public async Task Invoke(HttpContext context)
+        public async Task Invoke(HttpContext context, IResponseFormatter formatter, IResponseFormatter formatter2, IResponseFormatter formatter3)
         {
             if (context.Request.Path == "/middleware")
             {
-                await this._formatter.Format(context, "Custom middleware");
+                await formatter.Format(context, String.Empty);
+                await formatter2.Format(context, String.Empty);
+                await formatter3.Format(context, String.Empty);
+            } else
+            {
+                await this._next(context);
             }
-            await this._next(context);
+     
         }
 
     }

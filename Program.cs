@@ -2,7 +2,7 @@ using Core;
 using Core.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddSingleton<IResponseFormatter, HtmlResponseFormatter>();
+builder.Services.AddTransient<IResponseFormatter, GuidService>();
 var app = builder.Build();
 
 // IResponseFormatter formatter = new TextResponseFormatter();
@@ -19,6 +19,7 @@ app.MapGet("/formatter2", async (HttpContext context, IResponseFormatter formatt
 });
 
 app.UseMiddleware<CustomMiddleware>();
+app.UseMiddleware<CustomMiddleware2>();
 
 app.MapGet("/endpoint", CustomEndpoint.EndPoint);
 app.MapGet("/", () => "Hello World!");

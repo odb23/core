@@ -4,9 +4,9 @@ namespace Core
 {
     public class CustomEndpoint
     {
-        public static async Task EndPoint(HttpContext context)
+        public static async Task EndPoint(HttpContext context, IResponseFormatter formatter)
         {
-            IResponseFormatter formatter = context.RequestServices.GetRequiredService<IResponseFormatter>();
+           // IResponseFormatter formatter = context.RequestServices.GetRequiredService<IResponseFormatter>();
             await formatter.Format(context, "Custom Endpoint");
         }
     }
